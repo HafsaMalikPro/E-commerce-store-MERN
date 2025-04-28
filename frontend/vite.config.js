@@ -9,10 +9,13 @@ export default defineConfig({
     tailwindcss()
   ],
   server: {
-		proxy: {
-			"/api": {
-				target: "http://localhost:5000",
-			},
-		}
-	}
+    proxy: {
+      "/api": {
+        target: "http://localhost:5000",
+      },
+    }
+  },
+  build: {
+    outDir: 'dist',
+  }
 })
