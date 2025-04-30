@@ -53,6 +53,24 @@ export const useProductStore = create((set) => ({
 			toast.error(error.response.data.error || "Failed to delete product");
 		}
 	},
+
+	updateProduct: async (productId, updatedData) => {
+		set({ loading: true });
+		try {
+			const res = await axios.put(`/products/${productId}`, updatedData);
+			set((prev) => ({
+				products: prev.products.map((product) =>
+					product._id === productId ? res.data : product
+				),
+				loading: false,
+			}));
+			toast.success("Product updated successfully");
+		} catch (error) {
+			set({ loading: false });
+			toast.error(error.response?.data?.error || "Failed to update product");
+		}
+	},
+	
 	toggleFeaturedProduct: async (productId) => {
 		set({ loading: true });
 		try {
@@ -80,3 +98,6 @@ export const useProductStore = create((set) => ({
 		}
 	},
 }));
+
+
+// update product
